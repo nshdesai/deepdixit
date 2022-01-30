@@ -130,3 +130,9 @@ dmypy.json
 
 
 ece324-backend/
+
+# Ignore data files
+data/
+
+# Ignore VSCode files
+.vscode/
