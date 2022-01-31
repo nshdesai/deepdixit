@@ -8,15 +8,7 @@ import pandas as pd
 from tqdm import tqdm
 from big_sleep import Imagine
 import signal
-
-# terminate = False
-
-# def signal_handler(sig, frame):
-#     global terminate
-#     terminate = True
-
-# signal.signal(signal.SIGINT, signal_handler)
-
+from shutil import rmtree
 
 @click.command()
 @click.argument('prompt_file', type=click.Path(exists=True, resolve_path=True, path_type=Path))
@@ -32,6 +24,9 @@ def main(prompt_file, output_dir):
         if not overwrite:
             print("Exiting.")
             exit(1)
+        else:
+            print(f"Erasing and overwriting {output_dir}.")
+            rmtree(output_dir)
     
     output_dir.mkdir(parents=True, exist_ok=True)
     os.chdir(output_dir)
@@ -39,21 +34,21 @@ def main(prompt_file, output_dir):
 
     df = pd.read_csv(prompt_file)
     for i, (prompt, cat) in tqdm(df.iterrows(), total=df.shape[0]):
+        subdir = output_dir / cat
+        subdir.mkdir(parents=True, exist_ok=True)
+        os.chdir(subdir)
         imagine = Imagine(
-            text=prompt,
-            text_min='blur|'
+            text=prompt.lower(),
+            text_min='blur|zoom',
             open_folder=False,
+            larger_clip=False,
             gradient_accumulate_every=3,
-            epochs=2,
+            epochs=1,
             save_best=True, 
             iterations=100
         )
         imagine()
-        # if terminate:
-        #     print("Gracefully exiting.")
-        #     return 
-        # print(prompt)
-
+        os.chdir(output_dir)
 
 if __name__ == '__main__':
     main()
