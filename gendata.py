@@ -33,20 +33,24 @@ def main(prompt_file, output_dir):
     print(f'Generating data in {output_dir}...')
 
     df = pd.read_csv(prompt_file)
+
+    imagine = Imagine(
+        text_min="blur|zoom",
+        open_folder=False,
+        larger_clip=False,
+        gradient_accumulate_every=3,
+        epochs=1,
+        save_best=True, 
+        iterations=100
+    )
+    
     for i, (prompt, cat) in tqdm(df.iterrows(), total=df.shape[0]):
         subdir = output_dir / cat
         subdir.mkdir(parents=True, exist_ok=True)
         os.chdir(subdir)
-        imagine = Imagine(
-            text=prompt.lower(),
-            text_min='blur|zoom',
-            open_folder=False,
-            larger_clip=False,
-            gradient_accumulate_every=3,
-            epochs=1,
-            save_best=True, 
-            iterations=100
-        )
+        imagine.reset()
+        imagine.set_text(prompt.lower()  + "|" + cat.lower())
+        imagine.img = prompt.lower() + ".png" 
         imagine()
         os.chdir(output_dir)
 
