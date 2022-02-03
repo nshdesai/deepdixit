@@ -45,7 +45,7 @@ def deepdaze(prompt_file, output_dir):
         os.chdir(subdir)
    
         imagine = ddImagine(
-            text=prompt.lower() + "|" + cat.lower(),
+            text=prompt.lower(),
             open_folder=False,
             gradient_accumulate_every=4,
             epochs=2,
