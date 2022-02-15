@@ -1,11 +1,16 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from app.models import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-db = SQLAlchemy(app)
+db.init_app(app)
 
 @app.route('/')
 def index():
-  return "<h1>Hello World!</h1>"
+    db.create_all()
+    prompt = Prompt(prompt='What is your favorite color?')
+    db.session.add(prompt)
+    db.session.commit()
+    return str(app.config['SQLALCHEMY_DATABASE_URI'])
