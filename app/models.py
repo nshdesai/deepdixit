@@ -19,8 +19,8 @@ class Theme(db.Model):
 class PromptTheme(db.Model):
     __tablename__ = 'promptThemes'
 
-    prompt_id = db.Column(db.Integer, db.ForeignKey('prompts.id'), primary_key=True)
-    theme_id = db.Column(db.Integer, db.ForeignKey('themes.id'), primary_key=True)
+    prompt_id = db.Column(db.Integer, db.ForeignKey(Prompt.id), primary_key=True)
+    theme_id = db.Column(db.Integer, db.ForeignKey(Theme.id), primary_key=True)
 
 class ImageSource(db.Model):
     __tablename__ = 'imageSources'
@@ -32,8 +32,8 @@ class Image(db.Model):
     __tableame__ = 'images'
 
     id = db.Column(db.Integer, primary_key=True)
-    prompt_id = db.Column(db.Integer, db.ForeignKey('prompts.id'))
-    source_id = db.Column(db.Integer, db.ForeignKey('imageSources.id'))
+    prompt_id = db.Column(db.Integer, db.ForeignKey(Prompt.id))
+    source_id = db.Column(db.Integer, db.ForeignKey(ImageSource.id))
 
 class FakePromptSource(db.Model):
     __tablename__ = 'fakePromptSources'
@@ -45,8 +45,8 @@ class FakePrompt(db.Model):
     __tablename__ = 'fakePrompts'
 
     id = db.Column(db.Integer, primary_key=True)
-    image_id = db.Column(db.Integer, db.ForeignKey('images.id'))
-    source = db.Column(db.Integer, db.ForeignKey('fakePromptSources.id'))
+    image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
+    source = db.Column(db.Integer, db.ForeignKey(FakePromptSource.id))
     fake_prompt = db.Column(db.String)
 
 class Play(db.Model):
@@ -54,19 +54,19 @@ class Play(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     multiple_choice = db.Column(db.Boolean)
-    theme = db.Column(db.Integer, db.ForeignKey('themes.id'))
-    image = db.Column(db.Integer, db.ForeignKey('images.id'))
+    theme = db.Column(db.Integer, db.ForeignKey(Theme.id))
+    image = db.Column(db.Integer, db.ForeignKey(Image.id))
 
 class MultipleChoiceOption(db.Model):
     __tablename__ = 'multipleChoiceOptions'
 
-    play_id = db.Column(db.Integer, db.ForeignKey('plays.id'), primary_key=True) # should this be primary?
-    fake_prompt_id = db.Column(db.Integer, db.ForeignKey('fakePrompts.id'), primary_key=True) # should this be primary?
+    play_id = db.Column(db.Integer, db.ForeignKey(Play.id), primary_key=True) # should this be primary?
+    fake_prompt_id = db.Column(db.Integer, db.ForeignKey(FakePrompt.id), primary_key=True) # should this be primary?
     selected = db.Column(db.Boolean)
 
 class PlayerInput(db.Model):
     __tablename__ = 'playerInputs'
 
-    play_id = db.Column(db.Integer, db.ForeignKey('plays.id'), primary_key=True)
-    prompt_id = db.Column(db.Integer, db.ForeignKey('prompts.id'), primary_key=True) # should this be primary?
+    play_id = db.Column(db.Integer, db.ForeignKey(Play.id), primary_key=True) # should this be primary?
+    prompt_id = db.Column(db.Integer, db.ForeignKey(Prompt.id), primary_key=True) # should this be primary?
     score = db.Column(db.Float)

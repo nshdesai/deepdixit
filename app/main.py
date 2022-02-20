@@ -10,7 +10,4 @@ db.init_app(app)
 @app.route('/')
 def index():
     db.create_all()
-    prompt = Prompt(prompt='What is your favorite color?')
-    db.session.add(prompt)
-    db.session.commit()
     return str(app.config['SQLALCHEMY_DATABASE_URI'])
