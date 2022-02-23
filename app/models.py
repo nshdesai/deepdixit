@@ -60,13 +60,13 @@ class Play(db.Model):
 class MultipleChoiceOption(db.Model):
     __tablename__ = 'multipleChoiceOptions'
 
-    play_id = db.Column(db.Integer, db.ForeignKey(Play.id), primary_key=True) # should this be primary?
-    fake_prompt_id = db.Column(db.Integer, db.ForeignKey(FakePrompt.id), primary_key=True) # should this be primary?
+    play_id = db.Column(db.Integer, db.ForeignKey(Play.id), primary_key=True)
+    fake_prompt_id = db.Column(db.Integer, db.ForeignKey(FakePrompt.id), primary_key=True)
     selected = db.Column(db.Boolean)
 
 class PlayerInput(db.Model):
     __tablename__ = 'playerInputs'
 
-    play_id = db.Column(db.Integer, db.ForeignKey(Play.id), primary_key=True) # should this be primary?
-    prompt_id = db.Column(db.Integer, db.ForeignKey(Prompt.id), primary_key=True) # should this be primary?
+    play_id = db.Column(db.Integer, db.ForeignKey(Play.id), primary_key=True)
+    prompt_id = db.Column(db.Integer, db.ForeignKey(Prompt.id))
     score = db.Column(db.Float)
