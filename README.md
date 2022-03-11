@@ -9,3 +9,8 @@ to generate the image.
 ### Running locally
 
 1. Add an environment variable `DATABASE_URL` with the connection string from the Heroku Postgres Database. Make sure to change the `postgres://...` at the beginning to `postgresql://...`
+
+
+## Instructions for TA
+
+- For the web scraping scripts, see https://github.com/nshdesai/papersforbabies/tree/main/data_gathering/scrapers
