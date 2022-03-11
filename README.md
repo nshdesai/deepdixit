@@ -13,4 +13,8 @@ to generate the image.
 
 ## Instructions for TA
 
-- For the web scraping scripts, see https://github.com/nshdesai/papersforbabies/tree/main/data_gathering/scrapers
+- For the web scraping scripts, look [here](https://github.com/nshdesai/papersforbabies/tree/main/data_gathering/scrapers)
+- For the website components, see the [app](https://github.com/nshdesai/papersforbabies/tree/main/app) directory
+- For notebooks that perform image generations, check out the [original](https://colab.research.google.com/drive/1FoHdqoqKntliaQKnMoNs3yn5EALqWtvP) [notebooks](https://colab.research.google.com/drive/1NCceX2mbiKOSlAd_o7IU7nA9UskKN5WR?usp=sharing) by Ryan Murdock. (we use [two](https://github.com/lucidrains/deep-daze) [modules](https://github.com/lucidrains/big-sleep) that build around the models from those notebooks)
+- To see the parameters we are using to perform image generation, see the [`gendata.py`](https://github.com/nshdesai/papersforbabies/blob/generate_images/gendata.py) under [`generate_images`](https://github.com/nshdesai/papersforbabies/tree/generate_images)
+- Each feature that we are currently working on has its own branch, these can be explored too.  
