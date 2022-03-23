@@ -130,3 +130,5 @@ dmypy.json
 
 
 ece324-backend/
+
+frontend/node_modules/
