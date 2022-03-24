@@ -6,7 +6,7 @@ import './index.css';
 
 function App() {
 
-  const [page, setPage] = useState('home');
+  const [page, setPage] = useState('home'); 
 
   return (
     <div>
