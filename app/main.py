@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
@@ -12,8 +12,8 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 app = Flask(__name__)
 CORS(app, resource={
-    r"/*":{
-        "origins":"*"
+    r"/*": {
+        "origins": "*"
     }
 })
 print(f'DEBUG: {os.environ.get("DATABASE_URI")}')
@@ -21,16 +21,19 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
+
 @app.route('/')
 def index():
     db.create_all()
     return "Hello, World!"
+
 
 @app.route('/image')
 def image():
     img = ImageSource.query.get(1)
     print(img.source[:100])
     return f'<img src="data:image/png;base64, {img.source}">'
+
 
 @app.route('/random-image')
 def random_image():
@@ -57,10 +60,13 @@ def random_image():
             'real': False
         }]
 
-    return {
+    response = jsonify({
         "image": ImageSource.query.get(img.source_id).source.rstrip(),
         "prompts": prompt_ids
-    }
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 
 @app.route('/prompt/<int:prompt_id>')
 def prompt(prompt_id):
