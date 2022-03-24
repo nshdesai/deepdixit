@@ -47,7 +47,9 @@ h2 {
   justify-content: center;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(to right, #de6161, #2657eb);
+  background: linear-gradient(to right, #7ecffd, #3860d8);
+  /* background: linear-gradient(to right, #e66330, #3860d8); */
+  /* background-color: #3860d8; */
 }
 
 .upper-gap {
@@ -73,4 +75,41 @@ h2 {
 .nav-button:hover {
   font-weight: 700;
   text-decoration: underline;
+}
+
+.img-card {
+  position: absolute;
+  top: 0;
+}
+
+.next-btn {
+  position: absolute;
+  bottom: 0;
+}
+
+.multiple-choice {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 1em;
+  margin-top: 1em;
+}
+
+.choice {
+  margin: 0 auto;
+  min-width: 10vw;
+  font-family: 'Mono';
+}
+
+.score {
+  position: absolute;
+  justify-content: space-around;
+  align-items: center;
+  top: 0;
+  left: 20em;
+  display: flex;
+  font-family: 'Mono';
+  font-size: 25px;
+  width: 90px;
+  height: 90px;
 }
