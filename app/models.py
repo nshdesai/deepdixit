@@ -29,7 +29,7 @@ class ImageSource(db.Model):
     source = db.Column(db.String)
 
 class Image(db.Model):
-    __tableame__ = 'images'
+    __tablename__ = 'images'
 
     id = db.Column(db.Integer, primary_key=True)
     prompt_id = db.Column(db.Integer, db.ForeignKey(Prompt.id))
