@@ -19,6 +19,7 @@ CORS(app, resource={
 print(f'DEBUG: {os.environ.get("DATABASE_URI")}')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['CORS_HEADERS'] = 'Content-Type'
 db.init_app(app)
 
 
