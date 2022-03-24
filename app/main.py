@@ -13,7 +13,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 app = Flask(__name__)
 CORS(app, resource={
     r"/*": {
-        "origins": "*"
+        "origins": "https://ece324-frontend.herokuapp.com/*"
     }
 })
 print(f'DEBUG: {os.environ.get("DATABASE_URI")}')
@@ -65,7 +65,7 @@ def random_image():
         "image": ImageSource.query.get(img.source_id).source.rstrip(),
         "prompts": prompt_ids
     })
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    # response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
