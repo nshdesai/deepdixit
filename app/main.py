@@ -20,7 +20,7 @@ db.init_app(app)
 @app.route('/')
 def index():
     db.create_all()
-    return str(app.config['SQLALCHEMY_DATABASE_URI'])
+    return "Hello, World!"
 
 @app.route('/image')
 def image():
