@@ -13,13 +13,12 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 app = Flask(__name__)
 CORS(app, resource={
     r"/*": {
-        "origins": "https://ece324-frontend.herokuapp.com/*"
+        "origins": "*"
     }
 })
 print(f'DEBUG: {os.environ.get("DATABASE_URI")}')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['CORS_HEADERS'] = 'Content-Type'
 db.init_app(app)
 
 
