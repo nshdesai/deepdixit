@@ -17,7 +17,7 @@ function Game({ pageSetter }) {
     const [rounds, setRounds] = useState(0);
 
     useEffect(() => {
-        fetch('http://localhost:5000/random-image')
+        fetch('http://ece324.herokuapp.com/random-image')
             .then(res => res.json())
             .then(data => {
                 shuffleArray(data.prompts);
