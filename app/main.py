@@ -11,11 +11,8 @@ load_dotenv()
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 app = Flask(__name__)
-CORS(app, resource={
-    r"/*": {
-        "origins": "*"
-    }
-})
+CORS(app)
+
 print(f'DEBUG: {os.environ.get("DATABASE_URI")}')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -36,7 +33,6 @@ def image():
 
 
 @app.route('/random-image')
-@cross_origin()
 def random_image():
     img = Image.query.order_by(func.random()).first()
 
