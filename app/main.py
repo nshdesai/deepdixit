@@ -1,6 +1,6 @@
 import os
 from flask import Flask, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 from dotenv import load_dotenv
@@ -37,6 +37,7 @@ def image():
 
 
 @app.route('/random-image')
+@cross_origin()
 def random_image():
     img = Image.query.order_by(func.random()).first()
 
