@@ -15,14 +15,22 @@ function Game({ pageSetter }) {
     const [choiceSelected, setChoiceSelected] = useState(-1);
     const [score, setScore] = useState(0);
     const [rounds, setRounds] = useState(0);
+    const [nextImgIds, setNextImgIds] = useState([]);
 
     useEffect(() => {
-        fetch('https://ece324.herokuapp.com/random-image')
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nextImgIds: nextImgIds })
+        };
+
+        fetch('https://ece324.herokuapp.com/random-image', requestOptions)
             .then(res => res.json())
             .then(data => {
                 shuffleArray(data.prompts);
                 console.log(rounds);
                 setRandImage({ image: data.image, prompts: data.prompts });
+                setNextImgIds(data.nextImgIds);
             })
             .catch(err => console.log(err));
     }, [rounds]);
