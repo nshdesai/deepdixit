@@ -24,7 +24,7 @@ function Game({ pageSetter }) {
             body: JSON.stringify({ nextImgIds: nextImgIds })
         };
 
-        fetch('https://ece324.herokuapp.com/random-image', requestOptions)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/random-image`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 shuffleArray(data.prompts);
