@@ -25,13 +25,6 @@ def index():
     return "Hello, World!"
 
 
-@app.route('/image')
-def image():
-    img = ImageSource.query.get(1)
-    print(img.source[:100])
-    return f'<img src="data:image/png;base64, {img.source}">'
-
-
 @app.route('/random-image', methods=['POST'])
 def random_image():
 
@@ -72,15 +65,9 @@ def random_image():
         }]
 
     response = jsonify({
-        "image": ImageSource.query.get(img.source_id).source.rstrip(),
+        "image": img.image.rstrip(),
         "prompts": prompt_ids,
         "nextImgIds": nextImgIds
     })
     # response.headers.add('Access-Control-Allow-Origin', '*')
     return response
-
-
-@app.route('/prompt/<int:prompt_id>')
-def prompt(prompt_id):
-    prompt = Prompt.query.get(prompt_id)
-    return {"prompt": prompt.prompt}
