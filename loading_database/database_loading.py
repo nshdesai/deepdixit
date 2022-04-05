@@ -1,14 +1,3 @@
-"""
-Some questions:
-
-Is the API fine? I'm accepting the images as a pre-encoded string right now...
-There might be a lot of redundant queries, since we're using the same themes + image_sources repeatedly... Maybe we should memoize?
-I think we should rename the source column in the FakePrompt table to source_id, to be consistent with the Image table.
-Should I expose the session in this way? Where should I put the link to avoid hard-coding it in?
-We might want to use session.fetch() instead of commit() in some/all places, not sure about this...
-Should this file even be in app/?
-"""
-
 from models import *
 
 import os
@@ -21,7 +10,16 @@ engine = create_engine(os.environ.get('DATABASE_URL'))
 session = sessionmaker(bind=engine)()
 
 
-def write_record_to_db(prompt : str, fake_prompts : list, image : str, image_source : str, fake_prompt_source : str, theme : str = 'General', theme_description : str = None):
+def write_record_to_db(prompt : str, fake_prompts : list[str], image : str, image_source : str, fake_prompt_source : str, theme : str = 'General', theme_description : str = None):
+    """
+    prompt: The prompt used to generate the image, as a string
+    fake_prompts : a list of generated fake prompts, as strings
+    image: base64 encoded string of image
+    image_source: The tag for what we used to generate the image e.g. 'DeepDaze v1.0'
+    fake_prompt_source: The tag for what we used to generate the image e.g. 'Manual'
+    theme: The prompt theme, as a string
+    theme_description: The description for the theme, as a string
+    """
     image_id = write_image_to_db(prompt, image, image_source, theme, theme_description)
     for fp in fake_prompts:
         write_fake_prompt_to_db(fp, image_id, fake_prompt_source)
@@ -68,7 +66,7 @@ def write_fake_prompt_to_db(fake_prompt : str, image_id : int, fake_prompt_sourc
     fake_prompt_source_entry = FakePromptSource(source = image_source)
     fake_prompt_source_id = insert_if_new_and_get_id(FakePromptSource, 'source', fake_prompt_source_entry, 'id')
     
-    fake_prompt_entry = FakePrompt(image_id = image_id, source = fake_prompt_source_id, fake_prompt = fake_prompt)
+    fake_prompt_entry = FakePrompt(image_id = image_id, source_id = fake_prompt_source_id, fake_prompt = fake_prompt)
     session.add(fake_prompt_entry)
     session.commit()
     
@@ -86,4 +84,4 @@ def insert_if_new_and_get_id(table, col_to_match, item, id_col):
     else: # Add to table first
         session.add(item)
         session.commit()
-        retirn getattr(item, id_col)
+        return getattr(item, id_col)
