@@ -47,7 +47,7 @@ class FakePrompt(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
-    source = db.Column(db.Integer, db.ForeignKey(FakePromptSource.id))
+    source_id = db.Column(db.Integer, db.ForeignKey(FakePromptSource.id))
     fake_prompt = db.Column(db.String)
 
 class Play(db.Model):
