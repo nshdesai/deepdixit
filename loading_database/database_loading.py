@@ -16,16 +16,14 @@ from models import *
 engine = create_engine('...')
 session = sessionmaker(bind=engine)()
 
-def insert_if_new_and_get_id(table, col_to_match, item, id_col):
-    old_entry = session.query(table).filter_by(**{col_to_match : getattr(item, col_to_match)}).first()
-    if old_entry is not None:
-        return getattr(old_entry, id_col)
-    else: # Add to table first
-        session.add(item)
-        session.commit()
-        retirn getattr(item, id_col)
 
-def add_generated_image_to_database(prompt : str, image : str, image_source : str, theme : str = 'General', theme_description : str = None) -> int:
+def write_record_to_db(prompt : str, fake_prompts : list, image : str, image_source : str, fake_prompt_source : str, theme : str = 'General', theme_description : str = None):
+    image_id = write_image_to_db(prompt, image, image_source, theme, theme_description)
+    for fp in fake_prompts:
+        write_fake_prompt_to_db(fp, image_id, fake_prompt_source)
+
+
+def write_image_to_db(prompt : str, image : str, image_source : str, theme : str = 'General', theme_description : str = None) -> int:
     """
     prompt: The prompt used to generate the image, as a string
     image: base64 encoded string of image
@@ -54,7 +52,8 @@ def add_generated_image_to_database(prompt : str, image : str, image_source : st
     
     return image_entry.id
     
-def add_generated_fake_prompt_to_database(fake_prompt : str, image_id : int, fake_prompt_source : str) -> int:
+
+def write_fake_prompt_to_db(fake_prompt : str, image_id : int, fake_prompt_source : str) -> int:
     """
     fake_prompt: The generated fake prompt, as a string
     image_id: Database identified for the image associated with the fake prompt
@@ -70,3 +69,17 @@ def add_generated_fake_prompt_to_database(fake_prompt : str, image_id : int, fak
     session.commit()
     
     return fake_prompt_entry.id
+
+
+def insert_if_new_and_get_id(table, col_to_match, item, id_col):
+    """
+    Return the id_col value of the first entry in table where the value of col_to_match matches item.col_to_match.
+    If no such entry exists, insert item into table and return the new id.
+    """
+    old_entry = session.query(table).filter_by(**{col_to_match : getattr(item, col_to_match)}).first()
+    if old_entry is not None:
+        return getattr(old_entry, id_col)
+    else: # Add to table first
+        session.add(item)
+        session.commit()
+        retirn getattr(item, id_col)
