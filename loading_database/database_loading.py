@@ -9,11 +9,15 @@ We might want to use session.fetch() instead of commit() in some/all places, not
 Should this file even be in app/?
 """
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from models import *
 
-engine = create_engine('...')
+import os
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+
+engine = create_engine(os.environ.get('DATABASE_URL'))
 session = sessionmaker(bind=engine)()
 
 
