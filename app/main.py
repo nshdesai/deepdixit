@@ -54,13 +54,13 @@ def random_image():
         'real': True
     }]
 
-    fake_prompts = FakePrompt.query.filter_by(image_id=img.id).all()
+    fake_prompts = Prompt.query.filter(Prompt.id != actual_prompt_id).all()
     select_random = random.sample(fake_prompts, 3)
 
     for i in range(len(select_random)):
         prompt_ids += [{
             'id': select_random[i].id,
-            'prompt': select_random[i].fake_prompt,
+            'prompt': select_random[i].prompt,
             'real': False
         }]
 
