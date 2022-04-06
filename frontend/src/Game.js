@@ -42,7 +42,7 @@ function Game({ pageSetter }) {
                 <button className="nav-button" onClick={() => { pageSetter('results') }}>Results</button>
             </div>
             <div className='score max-w-2xl rounded-2xl overflow-hidden shadow-2xl bg-stone-50 p-5 mt-20'>
-                {score}
+                {score} / {rounds}
             </div>
             <div class="max-w-2xl rounded-2xl overflow-hidden shadow-2xl bg-orange-400 p-10 mt-20 img-card">
                 <img src={`data:image/png;base64, ${randImage.image}`} className="rounded-2xl" />
@@ -59,6 +59,7 @@ function Game({ pageSetter }) {
                                 } else if (prompt.real === false && choiceSelected === -1) {
                                     let newBtnColors = btnColors.slice();
                                     newBtnColors[index] = 'bg-red-500';
+                                    newBtnColors[randImage.prompts.map((p) => { return p.real === true}).indexOf(true)] = 'bg-emerald-400';
                                     setBtnColors(newBtnColors);
                                     setChoiceSelected(index);
                                 }
@@ -70,7 +71,7 @@ function Game({ pageSetter }) {
             {choiceSelected !== -1 && (
                 <button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full p-4 font-title text-2xl mb-12 next-btn" onClick={() => {
                     let newBtnColors = btnColors.slice();
-                    newBtnColors[choiceSelected] = 'bg-amber-100';
+                    newBtnColors.fill('bg-amber-100');
                     setBtnColors(newBtnColors);
                     setChoiceSelected(-1);
                     setRounds(rounds + 1);
