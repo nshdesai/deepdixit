@@ -42,7 +42,7 @@ function Game({ pageSetter }) {
                 <button className="nav-button" onClick={() => { pageSetter('results') }}>Results</button>
             </div>
             <div className='score max-w-2xl rounded-2xl overflow-hidden shadow-2xl bg-stone-50 p-5 mt-20'>
-                {score} / {rounds}
+                {score} / {rounds+1}
             </div>
             <div class="max-w-2xl rounded-2xl overflow-hidden shadow-2xl bg-orange-400 p-10 mt-20 img-card">
                 <img src={`data:image/png;base64, ${randImage.image}`} className="rounded-2xl" />
