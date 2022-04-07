@@ -83,14 +83,21 @@ h2 {
 }
 
 .img-card-presentation {
-  position: absolute;
+  position: relative;
+  margin: auto;
   top: 0;
-  left: 29em;
+  /* right: 15pc */
 }
 
 .next-btn {
   position: absolute;
   bottom: 0;
+}
+
+.next-btn-presentation {
+  position: relative;
+  margin: auto;
+  top: 0;
 }
 
 .multiple-choice {
@@ -102,13 +109,14 @@ h2 {
 }
 
 .multiple-choice-presentation {
-  position: absolute;
+  position: relative;
+  margin: auto;
+  top: 1pc;
+  right: 5pc;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   grid-gap: 2em;
-  margin-top: -12em;
-  right: 30em;
 }
 
 .choice {
@@ -131,14 +139,21 @@ h2 {
 }
 
 .score-presentation {
-  position: absolute;
+  position: relative;
+  margin: auto;
+  bottom: 15pc;
   justify-content: space-around;
   align-items: center;
-  top: 0;
-  left: 10em;
   display: flex;
   font-family: 'Mono';
   font-size: 25px;
   width: 120px;
   height: 120px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 2fr 5fr 5fr;
+  grid-gap: 20px;
+  margin-top: 4em; 
 }
