@@ -1,4 +1,4 @@
-from models import *
+from app.models import *
 
 import os
 
@@ -10,7 +10,7 @@ engine = create_engine(os.environ.get('DATABASE_URL'))
 session = sessionmaker(bind=engine)()
 
 
-def write_record_to_db(prompt : str, fake_prompts : list[str], image : str, image_source : str, fake_prompt_source : str, theme : str = 'General', theme_description : str = None):
+def write_record_to_db(prompt : str, fake_prompts : list, image : str, image_source : str, fake_prompt_source : str, theme : str = 'General', theme_description : str = None):
     """
     prompt: The prompt used to generate the image, as a string
     fake_prompts : a list of generated fake prompts, as strings
@@ -49,7 +49,7 @@ def write_image_to_db(prompt : str, image : str, image_source : str, theme : str
     image_source_id = insert_if_new_and_get_id(ImageSource, 'source', image_source_entry, 'id')
     
     image_entry = Image(prompt_id = prompt_id, source_id = image_source_id, image = image)
-    session.add(prompt_theme_entry)
+    session.add(image_entry)
     session.commit()
     
     return image_entry.id
