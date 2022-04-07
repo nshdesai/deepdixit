@@ -43,7 +43,7 @@ function Presentation({ pageSetter }) {
                 <button className="nav-button" onClick={() => { pageSetter('game') }}>Normal</button>
             </div>
             <div className='score-presentation max-w-2xl rounded-2xl overflow-hidden shadow-2xl bg-stone-50 p-5 mt-20'>
-                {score}/{rounds + 1}
+                {score}/{rounds}
             </div>
             <div class="max-w-2xl rounded-2xl overflow-hidden shadow-2xl bg-orange-400 p-10 mt-20 img-card-presentation">
                 <img src={`data:image/png;base64, ${randImage.image}`} className="rounded-2xl" />
@@ -58,12 +58,14 @@ function Presentation({ pageSetter }) {
                                 setBtnColors(newBtnColors);
                                 setChoiceSelected(index);
                                 setScore(score + 1);
+                                setRounds(rounds + 1);
                             } else if (prompt.real === false && choiceSelected === -1) {
                                 let newBtnColors = btnColors.slice();
                                 newBtnColors[index] = 'bg-red-500';
                                 newBtnColors[randImage.prompts.map((p) => { return p.real === true }).indexOf(true)] = 'bg-emerald-400';
                                 setBtnColors(newBtnColors);
                                 setChoiceSelected(index);
+                                setRounds(rounds + 1);
                             }
                         }}>{prompt.prompt}</button>
                     )
@@ -75,7 +77,6 @@ function Presentation({ pageSetter }) {
                     newBtnColors.fill('bg-amber-100');
                     setBtnColors(newBtnColors);
                     setChoiceSelected(-1);
-                    setRounds(rounds + 1);
                 }}>
                     Next Round
                 </button>
