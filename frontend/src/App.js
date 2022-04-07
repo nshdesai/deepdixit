@@ -4,6 +4,7 @@ import Game from './Game';
 import About from './About';
 import Results from './Results';
 import './index.css';
+import Presentation from './Presentation';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       {page === 'game' && <Game pageSetter={setPage}/>}
       {page === 'about' && <About pageSetter={setPage}/>}
       {page === 'results' && <Results pageSetter={setPage}/>}
+      {page === 'presentation' && <Presentation pageSetter={setPage}/>}
     </div>
 
   );

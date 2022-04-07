@@ -11,7 +11,7 @@ function Home({ pageSetter }) {
             <h1>DeepDixit</h1>
             <h2>an AI-powered image guessing game</h2>
 
-            <button className="bg-orange-500 w-1/5 hover:bg-orange-600 text-white rounded-full p-5 font-title text-3xl upper-gap" onClick={() => { pageSetter("game") }}>Play Now</button>
+            <button className="bg-orange-500 w-1/5 hover:bg-orange-600 text-white rounded-full p-5 font-title text-3xl upper-gap" onClick={() => { pageSetter("presentation") }}>Play Now</button>
         </div>
     );
 }
