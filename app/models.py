@@ -1,4 +1,3 @@
-from click import prompt
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -22,6 +21,9 @@ class PromptTheme(db.Model):
     prompt_id = db.Column(db.Integer, db.ForeignKey(Prompt.id), primary_key=True)
     theme_id = db.Column(db.Integer, db.ForeignKey(Theme.id), primary_key=True)
 
+    prompt = db.relationship(Prompt)
+    theme = db.relationship(Theme)
+
 class ImageSource(db.Model):
     __tablename__ = 'imageSource'
 
@@ -36,6 +38,9 @@ class Image(db.Model):
     source_id = db.Column(db.Integer, db.ForeignKey(ImageSource.id))
     image = db.Column(db.String)
 
+    prompt = db.relationship(Prompt)
+    source = db.relationship(ImageSource)
+
 class FakePromptSource(db.Model):
     __tablename__ = 'fakePromptSource'
 
@@ -49,6 +54,9 @@ class FakePrompt(db.Model):
     image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
     source_id = db.Column(db.Integer, db.ForeignKey(FakePromptSource.id))
     fake_prompt = db.Column(db.String)
+
+    image = db.relationship(Image)
+    source = db.relationship(FakePromptSource)
 
 class Play(db.Model):
     __tablename__ = 'play'
