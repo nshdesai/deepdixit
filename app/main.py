@@ -32,12 +32,15 @@ def random_image():
 
     body = request.get_json()
     nextImgIds = body['nextImgIds']
+
+    beatles_prompt_ids = PromptTheme.query.filter(PromptTheme.theme_id == 7).with_entities(PromptTheme.prompt_id)
+
     if len(nextImgIds) == 0:
-        nextImgIds = [x.id for x in Image.query.order_by(func.random()).limit(cache_size).all()]
+        nextImgIds = [x.id for x in Image.query.filter(Image.prompt_id.not_in(beatles_prompt_ids)).order_by(func.random()).limit(cache_size).all()]
         print(nextImgIds)
     elif len(nextImgIds) < cache_size:
         while len(nextImgIds) < cache_size:
-            next_img = Image.query.order_by(func.random()).first()
+            next_img = Image.query.filter(Image.prompt_id.not_in(beatles_prompt_ids)).order_by(func.random()).order_by(func.random()).first()
             if next_img.id not in nextImgIds:
                 nextImgIds.append(next_img.id)
         print(nextImgIds)
@@ -54,7 +57,7 @@ def random_image():
         'real': True
     }]
 
-    fake_prompts = Prompt.query.filter(Prompt.id != actual_prompt_id).all()
+    fake_prompts = Prompt.query.filter(Prompt.id != actual_prompt_id).filter(Prompt.id.not_in(beatles_prompt_ids)).order_by(func.random()).all()
     select_random = random.sample(fake_prompts, 3)
 
     for i in range(len(select_random)):
