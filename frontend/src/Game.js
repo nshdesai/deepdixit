@@ -15,6 +15,7 @@ function Game({ pageSetter }) {
     const [choiceSelected, setChoiceSelected] = useState(-1);
     const [score, setScore] = useState(0);
     const [rounds, setRounds] = useState(0);
+    const [nexts, setNexts] = useState(0);
     const [nextImgIds, setNextImgIds] = useState([]);
 
     useEffect(() => {
@@ -33,7 +34,7 @@ function Game({ pageSetter }) {
                 setNextImgIds(data.nextImgIds);
             })
             .catch(err => console.log(err));
-    }, [rounds]);
+    }, [nexts]);
 
     return (
         <div className='wrapper'>
@@ -43,7 +44,7 @@ function Game({ pageSetter }) {
                 <button className="nav-button" onClick={() => { pageSetter('presentation') }}>Presentation</button>
             </div>
             <div className='score max-w-2xl rounded-2xl overflow-hidden shadow-2xl bg-stone-50 p-5 mt-20'>
-                {score} / {rounds+1}
+                {score} / {rounds}
             </div>
             <div class="max-w-2xl rounded-2xl overflow-hidden shadow-2xl bg-orange-400 p-10 mt-20 img-card">
                 <img src={`data:image/png;base64, ${randImage.image}`} className="rounded-2xl" />
@@ -57,12 +58,14 @@ function Game({ pageSetter }) {
                                     setBtnColors(newBtnColors);
                                     setChoiceSelected(index);
                                     setScore(score + 1);
+                                    setRounds(rounds + 1);
                                 } else if (prompt.real === false && choiceSelected === -1) {
                                     let newBtnColors = btnColors.slice();
                                     newBtnColors[index] = 'bg-red-500';
                                     newBtnColors[randImage.prompts.map((p) => { return p.real === true}).indexOf(true)] = 'bg-emerald-400';
                                     setBtnColors(newBtnColors);
                                     setChoiceSelected(index);
+                                    setRounds(rounds + 1);
                                 }
                             }}>{prompt.prompt}</button>
                         )
@@ -75,7 +78,7 @@ function Game({ pageSetter }) {
                     newBtnColors.fill('bg-amber-100');
                     setBtnColors(newBtnColors);
                     setChoiceSelected(-1);
-                    setRounds(rounds + 1);
+                    setNexts(nexts + 1);
                 }}>
                     Next Round
                 </button>

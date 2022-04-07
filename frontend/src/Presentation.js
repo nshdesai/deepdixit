@@ -15,6 +15,7 @@ function Presentation({ pageSetter }) {
     const [choiceSelected, setChoiceSelected] = useState(-1);
     const [score, setScore] = useState(0);
     const [rounds, setRounds] = useState(0);
+    const [nexts, setNexts] = useState(0);
     const [nextImgIds, setNextImgIds] = useState([]);
 
     useEffect(() => {
@@ -33,7 +34,7 @@ function Presentation({ pageSetter }) {
                 setNextImgIds(data.nextImgIds);
             })
             .catch(err => console.log(err));
-    }, [rounds]);
+    }, [nexts]);
 
     return (
         <div className='wrapper'>
@@ -77,6 +78,7 @@ function Presentation({ pageSetter }) {
                     newBtnColors.fill('bg-amber-100');
                     setBtnColors(newBtnColors);
                     setChoiceSelected(-1);
+                    setNexts(nexts + 1);
                 }}>
                     Next Round
                 </button>
