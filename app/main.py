@@ -28,7 +28,7 @@ def index():
 @app.route('/random-image', methods=['POST'])
 def random_image():
 
-    cache_size = 3
+    cache_size = 10
 
     body = request.get_json()
     nextImgIds = body['nextImgIds']
@@ -57,7 +57,10 @@ def random_image():
         'real': True
     }]
 
-    fake_prompts = Prompt.query.filter(Prompt.id != actual_prompt_id).filter(Prompt.id.not_in(beatles_prompt_ids)).order_by(func.random()).all()
+    img_theme_id = PromptTheme.query.filter(PromptTheme.prompt_id == actual_prompt_id).first().theme_id
+    promtps_same_theme = PromptTheme.query.filter(PromptTheme.theme_id == img_theme_id).with_entities(PromptTheme.prompt_id)
+
+    fake_prompts = Prompt.query.filter(Prompt.id != actual_prompt_id).filter(Prompt.id.in_(promtps_same_theme)).order_by(func.random()).all()
     select_random = random.sample(fake_prompts, 3)
 
     for i in range(len(select_random)):
