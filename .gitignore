@@ -131,6 +131,7 @@ dmypy.json
 
 
 ece324-backend/
+
 frontend/node_modules/
 
 # Ignore IDE files
@@ -139,4 +140,3 @@ frontend/node_modules/
 
 # Ignore data
 data/
-
