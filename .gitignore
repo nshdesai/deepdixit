@@ -1,3 +1,5 @@
+Images/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -129,4 +131,12 @@ dmypy.json
 
 
 ece324-backend/
+
 frontend/node_modules/
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore data
+data/

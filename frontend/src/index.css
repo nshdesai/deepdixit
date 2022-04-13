@@ -82,9 +82,22 @@ h2 {
   top: 0;
 }
 
+.img-card-presentation {
+  position: relative;
+  margin: auto;
+  top: 0;
+  /* right: 15pc */
+}
+
 .next-btn {
   position: absolute;
   bottom: 0;
+}
+
+.next-btn-presentation {
+  position: relative;
+  margin: auto;
+  top: 0;
 }
 
 .multiple-choice {
@@ -93,6 +106,17 @@ h2 {
   grid-template-rows: repeat(2, 1fr);
   grid-gap: 1em;
   margin-top: 1em;
+}
+
+.multiple-choice-presentation {
+  position: relative;
+  margin: auto;
+  top: 1pc;
+  right: 5pc;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 2em;
 }
 
 .choice {
@@ -106,10 +130,30 @@ h2 {
   justify-content: space-around;
   align-items: center;
   top: 0;
-  left: 20em;
+  left: 18em;
   display: flex;
   font-family: 'Mono';
   font-size: 25px;
-  width: 90px;
-  height: 90px;
+  width: 120px;
+  height: 120px;
+}
+
+.score-presentation {
+  position: relative;
+  margin: auto;
+  bottom: 15pc;
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+  font-family: 'Mono';
+  font-size: 25px;
+  width: 120px;
+  height: 120px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 2fr 5fr 5fr;
+  grid-gap: 20px;
+  margin-top: 4em; 
 }
