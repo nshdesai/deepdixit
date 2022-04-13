@@ -9,6 +9,7 @@ to generate the image.
 ### Running locally
 
 1. Add an environment variable `DATABASE_URI` with the connection string from the Heroku Postgres Database. Make sure to change the `postgres://...` at the beginning to `postgresql://...`
+2. Run `python wsgi.py` from the root of this repository to start the Flask server.
 
 
 ## Instructions for TA
