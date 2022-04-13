@@ -136,3 +136,5 @@ data/
 
 # Ignore VSCode files
 .vscode/
+
+.idea/
