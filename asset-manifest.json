@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/deepdixit/static/css/main.e2603d62.css",
+    "main.js": "/deepdixit/static/js/main.87fd4309.js",
+    "static/js/787.cda612ba.chunk.js": "/deepdixit/static/js/787.cda612ba.chunk.js",
+    "index.html": "/deepdixit/index.html",
+    "main.e2603d62.css.map": "/deepdixit/static/css/main.e2603d62.css.map",
+    "main.87fd4309.js.map": "/deepdixit/static/js/main.87fd4309.js.map",
+    "787.cda612ba.chunk.js.map": "/deepdixit/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e2603d62.css",
+    "static/js/main.87fd4309.js"
+  ]
+}
